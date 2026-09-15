@@ -1,242 +1,624 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - N'dri Romuald Rémi Dangbo</title>
-    <style>
-        /* Style général */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            width: 100%;
-        }
-        header {
-            background: black;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .header-left h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .header-left span {
-            color: #00eeff; /* Vert clair */
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav ul li a:hover {
-            color: #00ffee;
-        }
-        .container {
-            display: flex;
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            align-items: center;
-        }
-        .left-column {
-            width: 40%;
-            text-align: center;
-            padding: 20px;
-        }
-        .right-column {
-            width: 60%;
-            padding: 20px;
-        }
-        .section {
-            text-align: left;
-            padding: 20px;
-            background: white;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-        }
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid #00fbff;
-            object-fit: cover;
-        }
-        .projects ul li {
-            transition: transform 0.3s ease-in-out;
-        }
-        .projects ul li:hover {
-            transform: scale(1.05);
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #00eeff;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        #contact {
-            background: black;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            width: 90%;
-            max-width: 800px;
-        }
-        #contact input, #contact textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-        }
-        #contact button {
-            background: #00eaff;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        #contact button:hover {
-            background: #02f2ff;
-            color: white;
-        }
-        #topBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px;
-            background: #0cf7ef;
-            color: black;
-            border: none;
-            cursor: pointer;
-            border-radius: 50%;
-            font-size: 18px;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            display: none;
-        }
-        /* Barre de progression */
-        .skill-bar {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-        .skill-level {
-            height: 10px;
-            background-color: #00eeff;
-            border-radius: 5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N'dri Romuald Rémi Dangbo — Géographe & Spécialiste SIG</title>
+<meta name="description" content="Portfolio de N'dri Romuald Rémi Dangbo, doctorant en géographie à l'UJLoG de Daloa et spécialiste en SIG et analyse géospatiale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,650;9..144,900&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A22;
+    --paper:#E7E2D3;
+    --paper-soft:#F1EDE1;
+    --green:#3F6B52;
+    --ochre:#B5793A;
+    --teal:#2E6E76;
+    --line: rgba(27,42,34,0.18);
+    --line-soft: rgba(27,42,34,0.09);
+    --maxw: 640px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes drawLine{
+    to{stroke-dashoffset:0;}
+  }
+  @keyframes popDot{
+    from{opacity:0; transform:scale(0);}
+    to{opacity:1; transform:scale(1);}
+  }
+  @keyframes pulseRing{
+    0%{opacity:0.6; transform:scale(1);}
+    100%{opacity:0; transform:scale(2.4);}
+  }
+
+  /* Section reveal on scroll */
+  section{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.in-view{opacity:1; transform:translateY(0);}
+  #accueil{opacity:1; transform:none;}
+
+  .reveal-child{
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  section.in-view .reveal-child{opacity:1; transform:translateY(0);}
+  section.in-view .reveal-child:nth-child(1){transition-delay:0.02s;}
+  section.in-view .reveal-child:nth-child(2){transition-delay:0.08s;}
+  section.in-view .reveal-child:nth-child(3){transition-delay:0.14s;}
+  section.in-view .reveal-child:nth-child(4){transition-delay:0.2s;}
+  section.in-view .reveal-child:nth-child(5){transition-delay:0.26s;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:650;
+    line-height:1.12;
+    margin:0 0 0.5em;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0 0 1.1em;}
+  a{color:var(--green);}
+  .wrap{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  /* ---- Side rail nav ---- */
+  nav.rail{
+    position:sticky;
+    top:0;
+    align-self:start;
+    height:100vh;
+    padding:48px 0 48px 44px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .rail-top .mark{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:1.3rem;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .rail-top .mark span{color:var(--green);}
+  .rail-top .role{
+    font-size:0.82rem;
+    color:var(--ink);
+    opacity:0.65;
+    max-width:150px;
+  }
+  .rail-links{
+    list-style:none;
+    padding:0;
+    margin:40px 0 0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .rail-links a{
+    text-decoration:none;
+    color:var(--ink);
+    opacity:0.55;
+    font-size:0.92rem;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:opacity 0.2s ease;
+  }
+  .rail-links a::before{
+    content:"";
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--ink);
+    opacity:0.35;
+    flex-shrink:0;
+    transition:background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  }
+  .rail-links a.active{opacity:1;}
+  .rail-links a.active::before{
+    background:var(--green);
+    opacity:1;
+    transform:scale(1.35);
+  }
+  .rail-foot{
+    font-size:0.78rem;
+    opacity:0.55;
+  }
+  .rail-foot a{color:var(--ink); opacity:1; text-decoration:underline;}
+
+  /* ---- Main content ---- */
+  main{padding:0 56px 0 0;}
+  section{
+    padding:96px 0 96px 44px;
+    border-left:1px solid var(--line-soft);
+    max-width:760px;
+  }
+  section:first-of-type{padding-top:56px;}
+  .kicker{
+    font-size:0.82rem;
+    color:var(--green);
+    margin:0 0 14px;
+  }
+  .lede{
+    font-size:1.08rem;
+    max-width:var(--maxw);
+    opacity:0.9;
+  }
+
+  /* ---- Hero ---- */
+  #accueil{border-left:none; padding-left:0; max-width:none;}
+  .hero{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-in{
+    opacity:0;
+    animation:riseIn 0.8s ease forwards;
+  }
+  .hero-in:nth-child(1){animation-delay:0.05s;}
+  .hero-in:nth-child(2){animation-delay:0.18s;}
+  .hero-in:nth-child(3){animation-delay:0.34s;}
+  .hero-in:nth-child(4){animation-delay:0.48s;}
+  .hero h1{font-size:clamp(2.1rem, 3.6vw, 2.9rem);}
+  .hero h1 em{
+    font-style:italic;
+    color:var(--green);
+  }
+  .hero-map{position:relative;}
+  .hero-map svg{width:100%; height:auto; display:block;}
+  .map-line{
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+    animation:drawLine 1.4s ease forwards;
+  }
+  .map-line.l2{animation-delay:0.35s;}
+  .map-line.l3{animation-delay:0.7s;}
+  .map-dot{
+    opacity:0;
+    transform-origin:center;
+    animation:popDot 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+  .map-dot.d2{animation-delay:0.45s;}
+  .map-dot.d3{animation-delay:0.8s;}
+  .map-ring{
+    transform-origin:center;
+    animation:pulseRing 2.4s ease-out 1.4s infinite;
+  }
+  .hero-cities{
+    margin-top:18px;
+    display:flex;
+    gap:22px;
+    font-size:0.82rem;
+    opacity:0.75;
+  }
+  .hero-cities span{display:flex; align-items:center; gap:6px;}
+  .dot-d{color:var(--green);}
+  .dot-i{color:var(--ochre);}
+  .dot-v{color:var(--teal);}
+  .cta-row{margin-top:28px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:12px 22px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:0.92rem;
+    font-weight:500;
+    border:1px solid var(--ink);
+    transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  }
+  .btn.primary{background:var(--ink); color:var(--paper);}
+  .btn.ghost{background:transparent; color:var(--ink);}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.primary:hover{background:var(--green); border-color:var(--green);}
+  .btn.ghost:hover{background:var(--ink); color:var(--paper);}
+
+  /* ---- Profil ---- */
+  .quote-block{
+    border-left:2px solid var(--ochre);
+    padding-left:20px;
+    margin:28px 0;
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    font-weight:400;
+    max-width:var(--maxw);
+  }
+  .facts{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 30px;
+    margin-top:32px;
+    max-width:var(--maxw);
+  }
+  .fact dt{
+    font-size:0.76rem;
+    opacity:0.6;
+    margin-bottom:4px;
+  }
+  .fact dd{
+    margin:0;
+    font-size:0.98rem;
+  }
+
+  /* ---- Recherche ---- */
+  .cities-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+    margin:32px 0;
+  }
+  .city-card{
+    border:1px solid var(--line);
+    padding:18px 16px;
+    background:var(--paper-soft);
+    transition:transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .city-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--green);
+    box-shadow:0 10px 24px rgba(27,42,34,0.1);
+  }
+  .city-card .name{
+    font-family:'Fraunces', serif;
+    font-weight:650;
+    font-size:1.05rem;
+  }
+  .city-card .tag{
+    font-size:0.78rem;
+    opacity:0.6;
+    margin-top:2px;
+  }
+  .axis-list{
+    list-style:none;
+    padding:0;
+    margin:28px 0;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .axis-list li{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:16px;
+    align-items:baseline;
+    border-top:1px solid var(--line-soft);
+    padding-top:16px;
+  }
+  .axis-list li:first-child{border-top:none; padding-top:0;}
+  .axis-list .code{
+    font-family:'Fraunces', serif;
+    font-weight:650;
+    color:var(--green);
+  }
+
+  /* ---- Expertise / competences ---- */
+  .tool-groups{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+    margin-top:28px;
+  }
+  .tool-group h3{
+    font-size:0.95rem;
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    margin-bottom:10px;
+    opacity:0.85;
+  }
+  .tool-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tool-tags span{
+    font-size:0.82rem;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    color:var(--ink);
+    display:inline-block;
+    transition:transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .tool-tags span:hover{
+    transform:translateY(-3px);
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--paper);
+  }
+
+  /* ---- Contact ---- */
+  #contact{border-bottom:none;}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 30px;
+    margin-top:30px;
+    max-width:var(--maxw);
+  }
+  .contact-item dt{font-size:0.76rem; opacity:0.6; margin-bottom:4px;}
+  .contact-item dd{margin:0; font-size:1rem;}
+  .contact-item dd a{
+    color:var(--ink);
+    text-decoration:none;
+    background-image:linear-gradient(var(--green), var(--green));
+    background-repeat:no-repeat;
+    background-position:0 100%;
+    background-size:0% 1px;
+    transition:background-size 0.3s ease, color 0.3s ease;
+    padding-bottom:2px;
+  }
+  .contact-item dd a:hover{background-size:100% 1px; color:var(--green);}
+  footer.page-foot{
+    padding:30px 0 60px 44px;
+    font-size:0.8rem;
+    opacity:0.55;
+    max-width:760px;
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 880px){
+    .wrap{grid-template-columns:1fr;}
+    nav.rail{
+      position:static;
+      height:auto;
+      padding:28px 24px 0;
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:flex-start;
+    }
+    .rail-links{
+      flex-direction:row;
+      flex-wrap:wrap;
+      margin:0;
+      gap:16px;
+    }
+    .rail-foot{display:none;}
+    main{padding:0 24px;}
+    section{padding:56px 0 56px 20px; max-width:none;}
+    #accueil{padding-left:0;}
+    .hero{grid-template-columns:1fr; gap:28px;}
+    .facts, .contact-grid{grid-template-columns:1fr;}
+    .cities-grid{grid-template-columns:1fr;}
+    footer.page-foot{padding-left:20px;}
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="header-left">
-            <h1><span>N'dri Romuald Rémi</span> Dangbo</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#skills">Compétences</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="left-column">
-            <img src="C:\Users\APROMAC\Documents\DONNEES PERSO\Photo DANGBO .jpg" alt="Photo de profil" class="profile-img">
-        </div>
-        <div class="right-column">
-            <section class="section" id="about">
-                <h2>À propos de moi</h2>
-                <p>Je suis <span>N'dri Romuald Rémi</span> Dangbo, Doctorant en Géographie, spécialisé en Géomatique et SIG.</p>
-                <p>Je suis passionné par les nouvelles technologies et les sciences de la terre.</p>
-                <p>Je suis actuellement Géomaticien à l'APROMAC et futur dévéloppeur Web.</p>
-                <a href="C:\Users\APROMAC\Downloads\CV_N'dri Romuald Rémi_DANGBO.pdf" download class="btn">Télécharger mon CV</a>
-            </section>
-        </div>
+<div class="wrap">
+  <nav class="rail">
+    <div class="rail-top">
+      <div class="mark">N'dri Romuald Rémi<span>Dangbo</span></div>
+      <div class="role">Doctorant en géographie environement: Economie circulaire et gestion des déchets · Spécialiste SIG</div>
+      <ul class="rail-links" id="railLinks">
+        <li><a href="#accueil" data-target="accueil">Accueil</a></li>
+        <li><a href="#profil" data-target="profil">Profil</a></li>
+        <li><a href="#recherche" data-target="recherche">Recherche doctorale</a></li>
+        <li><a href="#expertise" data-target="expertise">Expertise SIG</a></li>
+        <li><a href="#contact" data-target="contact">Contact</a></li>
+      </ul>
     </div>
+    <div class="rail-foot">Daloa / Abidjan, Côte d'Ivoire</div>
+  </nav>
 
-    <section class="section projects" id="projects">
-        <h2>Projets</h2>
-        <ul>
-            <li><strong>Géomaticien - APROMAC</strong> (2024 - Actuel)</li>
-            <li><strong>Consultant Formateur - IMPS</strong> (2024)</li>
-            <li><strong>Consultant Labelers Machine Learning - Enveritas/SADEV AFRIC</strong> (2023 - 2024)</li>
-        </ul>
+  <main>
+    <section id="accueil">
+      <div class="hero">
+        <div>
+          <p class="kicker hero-in">Portfolio de recherche</p>
+          <h1 class="hero-in">La ville, ses déchets, et la boucle qu'on n'a pas encore fermée&nbsp;<em>—</em></h1>
+          <p class="lede hero-in">N'dri Romuald Rémi Dangbo, doctorant en géographie à l'Université Jean Lorougnon Guédé de Daloa. Je travaille sur l'économie circulaire des déchets ménagers dans le Haut-Sassandra, avec les systèmes d'information géographique comme outil de lecture du territoire.</p>
+          <div class="cta-row hero-in">
+            <a class="btn primary" href="#recherche">Voir la thèse</a>
+            <a class="btn ghost" href="#contact">Me contacter</a>
+          </div>
+        </div>
+        <div class="hero-map hero-in">
+          <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte schématique du Haut-Sassandra avec Daloa, Issia et Vavoua">
+            <defs>
+              <pattern id="contour" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M-10 30 Q 15 0, 40 30 T 90 30" fill="none" stroke="var(--line-soft)" stroke-width="1"/>
+                <path d="M-10 50 Q 15 20, 40 50 T 90 50" fill="none" stroke="var(--line-soft)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="320" height="300" fill="url(#contour)"/>
+            <line class="map-line l1" x1="80" y1="70" x2="190" y2="150" stroke="var(--line)" stroke-width="1.4" stroke-dasharray="3 4"/>
+            <line class="map-line l2" x1="190" y1="150" x2="120" y2="235" stroke="var(--line)" stroke-width="1.4" stroke-dasharray="3 4"/>
+            <line class="map-line l3" x1="80" y1="70" x2="120" y2="235" stroke="var(--line)" stroke-width="1.4" stroke-dasharray="3 4"/>
+            <circle class="map-ring" cx="80" cy="70" r="7" fill="none" stroke="var(--green)" stroke-width="1.5"/>
+            <circle class="map-dot d1" cx="80" cy="70" r="7" fill="var(--green)"/>
+            <text x="94" y="68" font-family="Work Sans" font-size="12" fill="var(--ink)">Daloa</text>
+            <circle class="map-dot d2" cx="190" cy="150" r="7" fill="var(--ochre)"/>
+            <text x="204" y="148" font-family="Work Sans" font-size="12" fill="var(--ink)">Issia</text>
+            <circle class="map-dot d3" cx="120" cy="235" r="7" fill="var(--teal)"/>
+            <text x="134" y="233" font-family="Work Sans" font-size="12" fill="var(--ink)">Vavoua</text>
+          </svg>
+          <div class="hero-cities">
+            <span class="dot-d">●</span>Daloa
+            <span class="dot-i">●</span>Issia
+            <span class="dot-v">●</span>Vavoua
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="section" id="skills">
-        <h2>Compétences</h2>
-        <ul>
-            <li>SIG et télédétection
-                <div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div>
-            </li>
-            <li>Cartographie et analyse géospatiale
-                <div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div>
-            </li>
-            <li>Pilotage et traitement d’images drones
-                <div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div>
-            </li>
-            <li>Gestion de projet et suivi-évaluation
-                <div class="skill-bar"><div class="skill-level" style="width: 75%;"></div></div>
-            </li>
-        </ul>
+    <section id="profil">
+      <p class="kicker reveal-child">Profil</p>
+      <h2 class="reveal-child">Une géographie appliquée au territoire</h2>
+      <p class="lede reveal-child">Je suis en deuxième année de doctorat en géographie, sous la direction du Dr YAO-KOUASSI Quonan Christian. Mon travail combine recherche de terrain, méthodologie qualitative et quantitative, et analyse géospatiale.</p>
+      <div class="quote-block reveal-child">Comprendre comment une région passe d'une gestion linéaire de ses déchets à une véritable économie circulaire territoriale.</div>
+      <dl class="facts reveal-child">
+        <div class="fact">
+          <dt>Établissement</dt>
+          <dd>Université Jean Lorougnon Guédé (UJLoG), Daloa</dd>
+        </div>
+        <div class="fact">
+          <dt>Directeur de thèse</dt>
+          <dd>Dr YAO-KOUASSI Quonan Christian</dd>
+        </div>
+        <div class="fact">
+          <dt>Domaine</dt>
+          <dd>Géographie, économie circulaire, gestion des déchets, analyse spataile SIG/Géomatique</dd>
+        </div>
+        <div class="fact">
+          <dt>Soutenance prévue</dt>
+          <dd>Septembre 2027</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section id="recherche">
+      <p class="kicker reveal-child">Recherche doctorale</p>
+      <h2 class="reveal-child">L'économie circulaire à l'épreuve de la gestion des déchets ménagers dans les villes du Haut-Sassandra</h2>
+      <p class="lede reveal-child">La thèse porte sur trois villes du Centre-Ouest ivoirien et interroge le décalage entre les pratiques actuelles de gestion des déchets et les principes d'une économie circulaire territoriale.</p>
+
+      <div class="cities-grid reveal-child">
+        <div class="city-card">
+          <div class="name">Daloa</div>
+          <div class="tag">Terrain principal</div>
+        </div>
+        <div class="city-card">
+          <div class="name">Issia</div>
+          <div class="tag">Terrain comparatif</div>
+        </div>
+        <div class="city-card">
+          <div class="name">Vavoua</div>
+          <div class="tag">Terrain comparatif</div>
+        </div>
+      </div>
+
+      <ul class="axis-list reveal-child">
+        <li>
+          <span class="code">QS1–3</span>
+          <span>Trois questions de recherche structurent l'analyse, associées chacune à un objectif spécifique et à une hypothèse à vérifier sur le terrain.</span>
+        </li>
+        <li>
+          <span class="code">Terrain</span>
+          <span>Enquête programmée auprès de 791 ménages répartis sur 18 quartiers des trois villes, avec des guides d'entretien qualitatifs pour les mairies, entreprises privées, précollecteurs, récupérateurs et acheteurs.</span>
+        </li>
+        <li>
+          <span class="code">Outils</span>
+          <span>Instruments de collecte déployés sous KoboToolbox, grille d'observation directe structurée et tableau de correspondance pour croiser les données des différents acteurs.</span>
+        </li>
+        <li>
+          <span class="code">État</span>
+          <span>Cadre théorique et méthodologique finalisé ; la phase de collecte de terrain est en préparation avancée.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="expertise">
+      <p class="kicker reveal-child">Expertise SIG</p>
+      <h2 class="reveal-child">Le territoire, lu par les données</h2>
+      <p class="lede reveal-child">En parallèle de la recherche doctorale, j'interviens sur des travaux de systèmes d'information géographique, de télédétection et de contrôle qualité de données géospatiales.</p>
+
+      <div class="tool-groups reveal-child">
+        <div class="tool-group">
+          <h3>Analyse géospatiale</h3>
+          <div class="tool-tags">
+            <span>QGIS</span>
+            <span>PyQGIS</span>
+            <span>Télédétection</span>
+            <span>Contrôle qualité de données SIG</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h3>Collecte et traitement de données</h3>
+          <div class="tool-tags">
+            <span>KoboToolbox</span>
+            <span>Croisement de couches shapefile</span>
+            <span>Enquêtes de terrain</span>
+          </div>
+        </div>
+        <div class="tool-group">
+          <h3>Méthodologie de recherche</h3>
+          <div class="tool-tags">
+            <span>Méthodes mixtes</span>
+            <span>Analyse statistique</span>
+            <span>Cartographie thématique</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="contact">
-        <h2>Vous avez un projet en tête?
-            <br>N'existez pas à me contacter
-        </h2>
-        <form id="contactForm">
-            <input type="text" name="surname" placeholder="Votre prenom" required>
-            <input type="text" name="name" placeholder="Votre nom" required>
-            <input type="text" name="subject" placeholder="Sujet" required>
-            <textarea name="message" placeholder="Votre message" required></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
+      <p class="kicker reveal-child">Contact</p>
+      <h2 class="reveal-child">Discutons de votre projet ou de la recherche</h2>
+      <p class="lede reveal-child">Que ce soit pour un échange académique, une collaboration de terrain ou une mission en analyse géospatiale, je suis joignable via les canaux ci-dessous.</p>
+      <dl class="contact-grid reveal-child">
+        <div class="contact-item">
+          <dt>Email</dt>
+          <dd><a href="mailto:votre.email@domaine.com">romualddangbo@gmail.com</a></dd>
+        </div>
+        <div class="contact-item">
+          <dt>Téléphone</dt>
+          <dd>+225 07 89 39 87 81</dd>
+        </div>
+        <div class="contact-item">
+          <dt>Localisation</dt>
+          <dd>Daloa / Abidjan, Côte d'Ivoire</dd>
+        </div>
+        <div class="contact-item">
+          <dt>LinkedIn</dt>
+          <dd><a href="#">https://www.linkedin.com/in/n-dri-romuald-rémi-dangbo-8b3651161</a></dd>
+        </div>
+      </dl>
     </section>
 
-    <button id="topBtn">↑</button>
-
-    <footer>
-        <p>&copy; 2025 N'dri Romuald Rémi Dangbo - Tous droits réservés.</p>
+    <footer class="page-foot">
+      © 2026 N'dri Romuald Rémi Dangbo. Portfolio de recherche et d'expertise SIG.
     </footer>
+  </main>
+</div>
 
-    <script>
-        let topButton = document.getElementById("topBtn");
-        window.addEventListener("scroll", () => {
-            topButton.style.display = window.scrollY > 200 ? "block" : "none";
-        });
-        topButton.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    </script>
+<script>
+  const links = document.querySelectorAll('.rail-links a');
+  const sections = Array.from(links).map(l => document.getElementById(l.dataset.target));
+  const setActive = () => {
+    let current = sections[0];
+    const y = window.scrollY + window.innerHeight * 0.35;
+    sections.forEach(s => { if (s.offsetTop <= y) current = s; });
+    links.forEach(l => l.classList.toggle('active', l.dataset.target === current.id));
+  };
+  document.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive);
+  setActive();
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('section:not(#accueil)').forEach(s => revealObserver.observe(s));
+</script>
 
 </body>
 </html>
